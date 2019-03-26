@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Container>
-  <TemplateURL>https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/nzbget.xml</TemplateURL>
+  <TemplateURL>https://raw.githubusercontent.com/Gethec/docker_templates/master/nzbget-vpn.xml</TemplateURL>
   <Beta>False</Beta>
   <Category>Downloaders:</Category>
-  <Date>201-03-26</Date>
+  <Date>2019-03-26</Date>
   <Support>https://forums.unraid.net/topic/41906-support-linuxserverio-nzbget/</Support>
   <Name>nzbget-vpn</Name>
  <Changes> [center][img width='300px' src='https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/linuxserver_small.png'][/center]
