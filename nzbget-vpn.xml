@@ -1,41 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Container>
-  <TemplateURL>https://raw.githubusercontent.com/Gethec/docker_templates/master/nzbget-vpn.xml</TemplateURL>
-  <Beta>False</Beta>
-  <Category>Downloaders:</Category>
-  <Date>2019-03-26</Date>
-  <Support>https://forums.unraid.net/topic/41906-support-linuxserverio-nzbget/</Support>
-  <Name>nzbget-vpn</Name>
- <Changes> [center][img width='300px' src='https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/linuxserver_small.png'][/center]
-
-[center][font size=4]NZBGet Change Log[/font][/center]
-[b]26.03.2019:[/b] Added OpenVPN support.</Changes>
-  <Description>NZBGet is a usenet downloader, written in C++ and designed with performance in mind to achieve maximum download speed by using very little system resources. It supports all platforms including Windows, Mac, Linux and works on all devices including PC, NAS, WLAN routers and media players.
-  [br][br][b][u][span style='color: #E80000;']Configuration[/span][/u][/b][br]
-  [b]/config[/b] : Storing all NZBGet and OpenVPN config files [br]
-  [b]/downloads[/b] : Point to Downloads location[br]
-  [b]6789[/b] : The web-interface. [br]
-  [b]1194[/b[ : The default OpenVPN port [br]
-  [br] The default credentials to login are:[br]
-  [b]username:[/b] nzbget[br]
-  [b]password:[/b] tegbzn6789
-  </Description>
-  <Project>http://nzbget.net/</Project>
-  <Overview>NZBGet is a usenet downloader, written in C++ and designed with performance in mind to achieve maximum download speed by using very little system resources. It supports all platforms including Windows, Mac, Linux and works on all devices including PC, NAS, WLAN routers and media players</Overview>
-  <Registry>https://hub.docker.com/r/gethec/nzbget-vpn</Registry>
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>NZBGet-VPN</Name>
   <Repository>gethec/nzbget-vpn</Repository>
-  <BindTime>true</BindTime>
+  <Registry>https://hub.docker.com/r/gethec/nzbget-vpn</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
   <Privileged>false</Privileged>
-  <Environment>
-    <Variable>
-      <Name>PUID</Name>
-      <Value>99</Value>
-    </Variable>
-    <Variable>
-      <Name>PGID</Name>
-      <Value>100</Value>
-    </Variable>
-  </Environment>
+  <Support/>
+  <Project>http://nzbget.net/</Project>
+  <Overview>This container provides Linuxserver's excellent NZBGet container with OpenVPN support added onto it. The goal for this is to allow users to channel NZBGet's traffic through a VPN connection.</Overview>
+  <Category>Downloaders:</Category>
+  <WebUI>http://[IP]:[PORT:6789]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/Gethec/docker_templates/master/nzbget-vpn.xml</TemplateURL>
+  <Icon>https://bitbucket.org/Gethec/nzbget-vpn/raw/master/resources/nzbget.png</Icon>
+  <ExtraParams>--cap-add=NET_ADMIN</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1555900250</DateInstalled>
+  <DonateText>Donate to LinuxServer</DonateText>
+  <DonateLink>https://www.linuxserver.io/donate</DonateLink>
+  <Description>This container provides Linuxserver's excellent NZBGet container with OpenVPN support added onto it. The goal for this is to allow users to channel NZBGet's traffic through a VPN connection.</Description>
   <Networking>
     <Mode>bridge</Mode>
     <Publish>
@@ -44,31 +29,48 @@
         <ContainerPort>6789</ContainerPort>
         <Protocol>tcp</Protocol>
       </Port>
-      <Port>
-        <HostPort>1194</HostPort>
-        <ContainerPort>1194</ContainerPort>
-        <Protocol>udp</Protocol>
-      </Port>
     </Publish>
   </Networking>
   <Data>
     <Volume>
-      <HostDir></HostDir>
-      <ContainerDir>/config</ContainerDir>
-      <Mode>rw</Mode>
-    </Volume>
-    <Volume>
-      <HostDir></HostDir>
+      <HostDir/>
       <ContainerDir>/downloads</ContainerDir>
       <Mode>rw</Mode>
     </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/nzbget-vpn</HostDir>
+      <ContainerDir>/config</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
   </Data>
-  <Version></Version>
-  <WebUI>http://[IP]:[PORT:6789]/</WebUI>
-  <Icon>https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/nzbget-icon.png</Icon>
-  <ExtraParams>--cap-add=NET_ADMIN</ExtraParams>
-<DonateText>Donations</DonateText>
-<DonateLink>https://www.linuxserver.io/donate</DonateLink>
-<DonateImg>https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/donate.png</DonateImg>
-<BaseImage>lsiobase/alpine:3.6</BaseImage>
+  <Environment>
+    <Variable>
+      <Value>99</Value>
+      <Name>PUID</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>100</Value>
+      <Name>PGID</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>1194</Value>
+      <Name>OVPNPORT</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>vpn.conf</Value>
+      <Name>OVPNCONF</Name>
+      <Mode/>
+    </Variable>
+  </Environment>
+  <Labels/>
+  <Config Name="UI Port" Target="6789" Default="6789" Mode="tcp" Description="Container Port: 6789" Type="Port" Display="always" Required="true" Mask="false">6789</Config>
+  <Config Name="Download Directory" Target="/downloads" Default="" Mode="rw" Description="Container Path: /downloads" Type="Path" Display="always" Required="true" Mask="false"/>
+  <Config Name="User ID" Target="PUID" Default="99" Mode="" Description="Container Variable: PUID" Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
+  <Config Name="Group ID" Target="PGID" Default="" Mode="" Description="Container Variable: PGID" Type="Variable" Display="advanced" Required="false" Mask="false">100</Config>
+  <Config Name="OpenVPN Port" Target="OVPNPORT" Default="1194" Mode="" Description="Container Variable: OVPNPORT" Type="Variable" Display="advanced" Required="true" Mask="false">1194</Config>
+  <Config Name="OpenVPN Config" Target="OVPNCONF" Default="vpn.conf" Mode="" Description="Container Variable: OVPNCONF" Type="Variable" Display="advanced" Required="true" Mask="false">vpn.conf</Config>
+  <Config Name="AppData Config Path" Target="/config" Default="/mnt/user/appdata/nzbget-vpn" Mode="rw" Description="Container Path: /config" Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/nzbget-vpn</Config>
 </Container>
