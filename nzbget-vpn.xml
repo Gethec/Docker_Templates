@@ -20,7 +20,15 @@
   <DateInstalled>1555900250</DateInstalled>
   <DonateText>Donate to LinuxServer</DonateText>
   <DonateLink>https://www.linuxserver.io/donate</DonateLink>
-  <Description>This container provides Linuxserver's excellent NZBGet container with OpenVPN support added onto it. The goal for this is to allow users to channel NZBGet's traffic through a VPN connection.</Description>
+  <Description>This container provides Linuxserver's excellent NZBGet container with OpenVPN support added onto it. The goal for this is to allow users to channel NZBGet's traffic through a VPN connection.
+    [br][br][b][u][span style='color: #E80000;']Configuration[/span][/u][/b][br]
+    [b]/downloads[/b] : Point to media download location[br]
+    [b]/config[/b] : Storage location for all NZBGet and OpenVPN config files[br]
+    [b]6789[/b] : Web interface port[br]
+    [b]1194[/b] : Default OpenVPN port[br]
+    [br] The default credentials to log in are:[br]
+    [b]username:[/b] nzbget[br]
+    [b]password:[/b] tegbzn6789</Description>
   <Networking>
     <Mode>bridge</Mode>
     <Publish>
@@ -68,9 +76,9 @@
   <Labels/>
   <Config Name="UI Port" Target="6789" Default="6789" Mode="tcp" Description="Container Port: 6789" Type="Port" Display="always" Required="true" Mask="false">6789</Config>
   <Config Name="Download Directory" Target="/downloads" Default="" Mode="rw" Description="Container Path: /downloads" Type="Path" Display="always" Required="true" Mask="false"/>
+  <Config Name="AppData Config Path" Target="/config" Default="/mnt/user/appdata/nzbget-vpn" Mode="rw" Description="Container Path: /config" Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/nzbget-vpn</Config>
   <Config Name="User ID" Target="PUID" Default="99" Mode="" Description="Container Variable: PUID" Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
   <Config Name="Group ID" Target="PGID" Default="" Mode="" Description="Container Variable: PGID" Type="Variable" Display="advanced" Required="false" Mask="false">100</Config>
   <Config Name="OpenVPN Port" Target="OVPNPORT" Default="1194" Mode="" Description="Container Variable: OVPNPORT" Type="Variable" Display="advanced" Required="true" Mask="false">1194</Config>
   <Config Name="OpenVPN Config" Target="OVPNCONF" Default="vpn.conf" Mode="" Description="Container Variable: OVPNCONF" Type="Variable" Display="advanced" Required="true" Mask="false">vpn.conf</Config>
-  <Config Name="AppData Config Path" Target="/config" Default="/mnt/user/appdata/nzbget-vpn" Mode="rw" Description="Container Path: /config" Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/nzbget-vpn</Config>
 </Container>
